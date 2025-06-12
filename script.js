@@ -5,23 +5,29 @@ const tastlist = document.getElementById('tasklist')
 const titulo = document.getElementById('titulo')
 
 let nome = prompt("qual o seu nome? ")
+tarefa.focus()
 if(nome==""){
     titulo.innerHTML = "lista de tarefa Genérica"
 }
 else{
 titulo.innerHTML = `Lista de tarefa: ${nome};`
 }
+
 // acompanha o evento de clique do botão adicionar tarefa
 btnadd.addEventListener("click",criaTarefa);
-tarefa.addEventListener('keypress',function(){
+tarefa.addEventListener('keypress',function(e){
     if(e.key === 'Enter')criaTarefa();
 })
 function criaTarefa(){
+    if(tarefa.value==""){
+        alert("digite o nome de sua tarefa")
+    }
+    else{
     const listItem =document.createElement('li');
     listItem.textContent = tarefa.value;
     tasklist.appendChild(listItem);
 
-
+    
     //criar botão de deletar tarefa
     const removeButton = document.createElement('button');
     removeButton.id ="remove";
@@ -47,5 +53,8 @@ function criaTarefa(){
     
     concluirButton.addEventListener("click",function(){
         listItem.classList.toggle('completed');
+
     })
+    }tarefa.value ='';
+    tarefa.focus();
 }
